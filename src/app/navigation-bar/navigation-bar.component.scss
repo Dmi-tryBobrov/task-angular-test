@@ -1,0 +1,23 @@
+.mat-toolbar {
+  background-color: indigo;
+  height: 3.5rem;
+}
+
+.mat-icon {
+  margin-left: 3px;
+}
+
+button[mat-menu-item]:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+a,
+a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.title {
+  user-select: none;
+  cursor: pointer;
+}

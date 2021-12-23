@@ -1,0 +1,27 @@
+<mat-toolbar fxLayout="row" color="primary" class="mat-toolbar">
+  <span fxFlex class="title"><a href="/">Angular test</a></span>
+  <ng-container *ngFor="let item of menuItems">
+    <button mat-button (click)="navigate(item.link)">
+      {{ item.label }}
+      <mat-icon class="mat-icon">{{ item.icon }}</mat-icon>
+    </button>
+  </ng-container>
+  <!-- <button mat-icon-button [matMenuTriggerFor]="dropMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #dropMenu="matMenu">
+    <ng-container *ngFor="let item of menuItems">
+      <div
+        [fxShow]="!item.largeScreen"
+        [fxShow.sm]="!item.mediumScreen"
+        [fxShow.xs]="!item.smallScreen"
+      >
+        <button mat-menu-item (click)="navigate(item.link)">
+          <mat-icon class="mat-icon">{{ item.icon }}</mat-icon>
+          {{ item.label }}
+        </button>
+        <mat-divider></mat-divider>
+      </div>
+    </ng-container>
+  </mat-menu> -->
+</mat-toolbar>
