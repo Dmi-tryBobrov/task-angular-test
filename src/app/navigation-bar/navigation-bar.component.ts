@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { MenuItem } from './menu-item';
 
 @Component({
@@ -9,18 +11,16 @@ import { MenuItem } from './menu-item';
 export class NavigationBarComponent implements OnInit {
   public menuItems: MenuItem[] = [
     {
-      label: 'Log In',
-      icon: 'login',
-      link: '/login',
-    },
-    {
       label: 'Log Out',
       icon: 'logout ',
       link: '/login',
     },
   ];
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private auth: AuthService
+    ) {}
 
   ngOnInit(): void {}
 
@@ -29,5 +29,7 @@ export class NavigationBarComponent implements OnInit {
       return;
     }
     console.log(link);
+    this.auth.logOut();
+    this.router.navigate(['/login']);
   }
 }

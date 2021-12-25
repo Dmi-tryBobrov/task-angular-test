@@ -1,20 +1,53 @@
-<div class="login-container">
-  <mat-form-field appearance="outline">
-    <mat-label>Login</mat-label>
-    <input matInput [formControl]="login" required />
-    <mat-error *ngIf="login.invalid">{{ showErrorMessage() }}</mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Enter your password</mat-label>
-    <input matInput [type]="hide ? 'password' : 'text'" />
+<form
+  [formGroup]="loginForm"
+  #loginFormTempl="ngForm"
+  (ngSubmit)="onFormSubmit(login.value, password.value)"
+>
+  <div class="login-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Login</mat-label>
+      <input
+        id="login-input"
+        matInput
+        [formControl]="login"
+        tabindex="1"
+        #loginId
+        required
+      />
+      <mat-error *ngIf="login.invalid && (login.touched || login.dirty)">{{
+        showLoginErrorMessage()
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        [formControl]="password"
+        tabindex="2"
+        #passwordId
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      <mat-error *ngIf="password.invalid">{{
+        showPasswordErrorMessage()
+      }}</mat-error>
+    </mat-form-field>
     <button
-      mat-icon-button
-      matSuffix
-      (click)="hide = !hide"
-      [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide"
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="checkFormState()"
+      tabindex="3"
     >
-      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      Log In
     </button>
-  </mat-form-field>
-</div>
+  </div>
+</form>
