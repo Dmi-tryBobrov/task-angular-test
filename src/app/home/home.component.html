@@ -1,5 +1,28 @@
-<h2>
-  Welcome, <b>{{ userLogin }}</b
-  >!
-</h2>
-<button mat-raised-button color="primary" (click)="navigate()">Profile</button>
+<form autocomplete="off" [formGroup]="userInputs" #userInputsTempl="ngForm">
+  <mat-form-field appearance="outline">
+    <mat-label>1</mat-label>
+    <input matInput formControlName="minValue" required tabindex="2" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>2</mat-label>
+    <input matInput formControlName="maxValue" required tabindex="3" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>3</mat-label>
+    <input matInput formControlName="maxHeight" required tabindex="4" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>4</mat-label>
+    <input matInput formControlName="numberOfPoints" required tabindex="5" />
+  </mat-form-field>
+  <button
+    type="submit"
+    mat-stroked-button
+    color="primary"
+    tabindex="1"
+    [disabled]="userInputsTempl.invalid"
+  >
+    Submit
+  </button>
+</form>
+<div class="canvas-container"><canvas></canvas></div>

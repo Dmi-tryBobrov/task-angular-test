@@ -11,11 +11,18 @@ import { MenuItem } from './menu-item';
 export class NavigationBarComponent implements OnInit {
   public menuItems: MenuItem[] = [
     {
+      label: 'Profile',
+      icon: 'account_circle',
+      link: '/profile'
+    },
+    {
       label: 'Log Out',
       icon: 'logout ',
       link: '/login',
     },
   ];
+
+  private _logoutLink='/login'; //redirect to login page on logout
 
   constructor(
     private router: Router,
@@ -29,7 +36,11 @@ export class NavigationBarComponent implements OnInit {
       return;
     }
     console.log(link);
-    this.auth.logOut();
-    this.router.navigate(['/login']);
+
+    if(link === this._logoutLink){
+      this.auth.logOut();
+    }
+    
+    this.router.navigate([link]);
   }
 }
