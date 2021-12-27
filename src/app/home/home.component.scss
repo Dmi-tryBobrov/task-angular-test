@@ -1,3 +1,6 @@
+$canvas-padding: 0.5em;
+$canvas-margin: 0em;
+
 form {
   display: flex;
   flex-flow: row wrap;
@@ -5,19 +8,28 @@ form {
   align-items: baseline;
   //   padding: 1em;
   margin-top: 1em;
-  margin-bottom: 1em;
+  margin-bottom: 0em;
 }
 
 .canvas-container {
-  padding: 0.5em;
+  padding: $canvas-padding;
+  margin: $canvas-margin;
   width: 100%;
-  height: clamp(200px, 30em, 70vh);
+  height: clamp(200px, 35em, 75vh);
   position: relative;
 }
 
 canvas {
-  width: 100%;
+  width: calc(100% - #{$canvas-padding * 2} - #{$canvas-margin * 2});
   height: 100%;
   border: 2px solid indigo;
-  //   position: absolute;
+  position: absolute;
+}
+
+#curve-layer {
+  z-index: 2;
+}
+
+#bgd-layer {
+  z-index: 1;
 }

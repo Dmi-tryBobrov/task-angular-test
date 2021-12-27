@@ -1,19 +1,48 @@
-<form autocomplete="off" [formGroup]="userInputs" #userInputsTempl="ngForm">
+<form
+  autocomplete="off"
+  [formGroup]="userInputs"
+  #userInputsTempl="ngForm"
+  (ngSubmit)="generateCurve(userInputsTempl.value)"
+>
   <mat-form-field appearance="outline">
-    <mat-label>1</mat-label>
-    <input matInput formControlName="minValue" required tabindex="2" />
+    <mat-label>min coord</mat-label>
+    <input
+      name="min"
+      matInput
+      formControlName="minValue"
+      required
+      tabindex="2"
+    />
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>2</mat-label>
-    <input matInput formControlName="maxValue" required tabindex="3" />
+    <mat-label>max coord</mat-label>
+    <input
+      name="max"
+      matInput
+      formControlName="maxValue"
+      required
+      tabindex="3"
+    />
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>3</mat-label>
-    <input matInput formControlName="maxHeight" required tabindex="4" />
+    <mat-label>max height</mat-label>
+    <input
+      name="height"
+      matInput
+      formControlName="maxHeight"
+      required
+      tabindex="4"
+    />
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>4</mat-label>
-    <input matInput formControlName="numberOfPoints" required tabindex="5" />
+    <mat-label>number of points</mat-label>
+    <input
+      name="points"
+      matInput
+      formControlName="numberOfPoints"
+      required
+      tabindex="5"
+    />
   </mat-form-field>
   <button
     type="submit"
@@ -22,7 +51,10 @@
     tabindex="1"
     [disabled]="userInputsTempl.invalid"
   >
-    Submit
+    Generate
   </button>
 </form>
-<div class="canvas-container"><canvas></canvas></div>
+<div class="canvas-container">
+  <canvas id="bgd-layer"></canvas>
+  <canvas id="curve-layer"></canvas>
+</div>
