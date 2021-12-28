@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { LoadingStateService } from './services/loading-state.service';
 import { GraphDataStore } from './store/graph-data.store';
 
 @Component({
@@ -11,8 +12,11 @@ import { GraphDataStore } from './store/graph-data.store';
 export class AppComponent{
   public isLoggedIn$ = this.auth.isLoggedIn$;
 
+  public loading$ = this.loadingState.loadState$;
+  
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private loadingState: LoadingStateService
   ) {}
 
 }

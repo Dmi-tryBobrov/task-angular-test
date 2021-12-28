@@ -2,3 +2,9 @@
   <app-navigation-bar></app-navigation-bar>
 </header>
 <router-outlet></router-outlet>
+
+<ng-container *ngIf="loading$ | async">
+  <div class="wrapper">
+    <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+  </div>
+</ng-container>

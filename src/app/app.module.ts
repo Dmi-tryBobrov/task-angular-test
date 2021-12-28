@@ -16,6 +16,7 @@ import { MockServerInterceptor } from './interceptors/mock-server.interceptor';
 import { GraphDataStore } from './store/graph-data.store';
 import { IsNumberDirective } from './validators/is-number.directive';
 import { SameValueDirective } from './validators/same-value.directive';
+import { ShowSpinnerInterceptor } from './interceptors/show-spinner.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { SameValueDirective } from './validators/same-value.directive';
     AppRoutingModule
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ShowSpinnerInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: MockServerInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],

@@ -24,15 +24,23 @@ export class RenderGraphService {
   //background default variables
   private _bgdGridColor = '#000000';
   private _bgdGridWidth = 0.6;
-  private _bgdBorderColor = '#aaaaaa';
-  private _bgdBorderWidth = 2;
+  private _bgdBorderColor = '#888888';
+  private _bgdBorderWidth = 3;
+  private _subAxis = 4;
   private _bgdXAxisLines = 30;
   private _bgdYAxisLines = 15;
+
+  //foreground defaul vars 
+  private _labelFontSize = 11;
+  private _maxCharNumInLabel = 8;
+  private _curveColor = "#4b0082"; //indigo
+
+  //common defaults
   private _bgdBorderMargins = {
-    top: 8,
-    bottom: 30,
-    left: 30,
-    right: 10 
+    top: this._labelFontSize,
+    bottom: this._labelFontSize + this._subAxis*4,
+    left: this._labelFontSize*(this._maxCharNumInLabel + 1),
+    right: this._labelFontSize*this._maxCharNumInLabel/2 + 1
   }
 
   constructor() { }
@@ -97,19 +105,12 @@ export class RenderGraphService {
       this._ctx = undefined;
       return null;
     }
-
-    // console.log(this.canvasList['canvas_'+id].width, this.canvasList['canvas_'+id].height)
   }
 
   renderBackgroundGrid(id: string):void {
     let canvasSize = this.getCanvasSizeAndCtx(id);
     if(!this._ctx || !canvasSize) {return;}
 
-    // this._ctx.strokeStyle = this._bgdBorderColor;
-    // this._ctx.lineWidth = this._bgdBorderWidth;
-    // this._ctx.strokeRect(this._bgdBorderMargins.left, this._bgdBorderMargins.top,
-    //   canvasSize.width - this._bgdBorderMargins.left - this._bgdBorderMargins.right,
-    //   canvasSize.height - this._bgdBorderMargins.top - this._bgdBorderMargins.bottom);
     this.clearCanvas(canvasSize);
 
     this._ctx.strokeStyle = this._bgdGridColor;
@@ -117,13 +118,16 @@ export class RenderGraphService {
 
     let offsetX = (canvasSize.width - this._bgdBorderMargins.left
       - this._bgdBorderMargins.right)/(this._bgdXAxisLines - 1);
-    let x_horLineLeft = this._bgdBorderMargins.left - this._bgdBorderWidth*2.5;
+
+    let x_horLineLeft = this._bgdBorderMargins.left - this._bgdBorderWidth*0.5 - this._subAxis;
     let x_horLineRight = canvasSize.width - this._bgdBorderMargins.right;
 
     let offsetY = (canvasSize.height - this._bgdBorderMargins.bottom
       - this._bgdBorderMargins.top)/(this._bgdYAxisLines - 1);
+
     let y_vertLineTop = this._bgdBorderMargins.top;
-    let y_vertLineBottom = canvasSize.height - this._bgdBorderMargins.bottom + this._bgdBorderWidth*2.5;
+    let y_vertLineBottom = canvasSize.height - this._bgdBorderMargins.bottom 
+    + this._bgdBorderWidth*0.5 + this._subAxis;
 
     //draw vertical sub-axis
     for(let i = 0; i < this._bgdXAxisLines; i++){
@@ -163,7 +167,7 @@ export class RenderGraphService {
     let y_RightBottomXAxis = canvasSize.height - this._bgdBorderMargins.bottom + this._bgdBorderWidth*3;
 
     this._ctx.fillStyle = '#000000';
-    this._ctx.font = '11px Arial';
+    this._ctx.font = `${this._labelFontSize}px Arial`;
     this._ctx.textAlign = 'center';
     this._ctx.textBaseline = 'top';
 
@@ -202,8 +206,11 @@ export class RenderGraphService {
 
     this._ctx.save();
     this._ctx.transform(1, 0, 0, -1, 0, canvasSize.height);
-    this._ctx.translate(this._bgdBorderMargins.bottom, this._bgdBorderMargins.left);
-    this._ctx.strokeStyle = "#4b0082";
+    this._ctx.translate(this._bgdBorderMargins.left, this._bgdBorderMargins.bottom);
+    this._ctx.strokeStyle = this._curveColor;
+
+    //ONLY for QA
+    // this._ctx.fillRect(0,0,50,50)
 
     this._ctx.beginPath();
     this._ctx.moveTo(0,graphY0*offsetY);
@@ -212,13 +219,10 @@ export class RenderGraphService {
       let x = (points[i].x - graphX0)*offsetX;
       let y = (points[i].y)*offsetY;
 
-      // console.log(offsetX, offsetY)
-      // console.log(x, y, y/offsetY);
       this._ctx.lineTo(x, y);
     }
 
     this._ctx.stroke();
-    // this._ctx.fillRect(0,0,50,50);
 
     this._ctx.restore();
   }
