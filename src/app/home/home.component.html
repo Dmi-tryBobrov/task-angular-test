@@ -3,6 +3,7 @@
   [formGroup]="userInputs"
   #userInputsTempl="ngForm"
   (ngSubmit)="generateCurve(userInputsTempl.value)"
+  [ngSwitch]="userInputsTempl.errors?.['sameValue']"
 >
   <mat-form-field appearance="outline">
     <mat-label>min coord</mat-label>
@@ -12,7 +13,14 @@
       formControlName="minValue"
       required
       tabindex="2"
+      appIsNumber="float"
     />
+    <ng-container *ngIf="minValue.valid">
+      <mat-error *ngSwitchCase="true">Duplicate value</mat-error>
+    </ng-container>
+    <mat-error *ngIf="minValue.invalid">{{
+      showInputErrorMessage()
+    }}</mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>max coord</mat-label>
@@ -22,7 +30,14 @@
       formControlName="maxValue"
       required
       tabindex="3"
+      appIsNumber="float"
     />
+    <ng-container *ngIf="maxValue.valid">
+      <mat-error *ngSwitchCase="true">Duplicate value</mat-error>
+    </ng-container>
+    <mat-error *ngIf="maxValue.invalid">{{
+      showInputErrorMessage()
+    }}</mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>max height</mat-label>
@@ -32,7 +47,11 @@
       formControlName="maxHeight"
       required
       tabindex="4"
+      appIsNumber="positiveFloat"
     />
+    <mat-error *ngIf="maxHeight.invalid">{{
+      showInputErrorMessage()
+    }}</mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>number of points</mat-label>
@@ -42,7 +61,11 @@
       formControlName="numberOfPoints"
       required
       tabindex="5"
+      appIsNumber="int"
     />
+    <mat-error *ngIf="numberOfPoints.invalid">{{
+      showInputErrorMessage()
+    }}</mat-error>
   </mat-form-field>
   <button
     type="submit"

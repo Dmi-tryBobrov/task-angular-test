@@ -24,13 +24,14 @@ export class MockServerService {
     const numberOfPoints = parseInt(input.numberOfPoints, 10);
     const maxHeight = parseFloat(input.maxHeight);
 
-    // const gaussianA = this.getRandomFloat(0, maxHeight);
-    // const gaussianB = this.getRandomFloat(minX, maxX);
-    // const gaussianC = (maxX - minX)/this._width;
+    const gaussianA = this.getRandomFloat(0, maxHeight);
+    const gaussianB = this.getRandomFloat(minX, maxX);
+    const gaussianC = (maxX - minX)/this._width;
 
     //for QA use normal distribution
-    let gaussianA, gaussianB, gaussianC: number;
-    [gaussianA, gaussianB, gaussianC] = this.getNormalDistr(maxHeight, minX, maxX);
+    // let gaussianA, gaussianB, gaussianC: number;
+    // [gaussianA, gaussianB, gaussianC] = this.getNormalDistr(maxHeight, minX, maxX);
+
     console.log(`a: ${gaussianA}, b: ${gaussianB}, c: ${gaussianC}`);
 
     const delta = (maxX - minX)/(numberOfPoints - 1);

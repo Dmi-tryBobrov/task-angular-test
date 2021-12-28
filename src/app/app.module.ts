@@ -14,6 +14,8 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MockServerInterceptor } from './interceptors/mock-server.interceptor';
 import { GraphDataStore } from './store/graph-data.store';
+import { IsNumberDirective } from './validators/is-number.directive';
+import { SameValueDirective } from './validators/same-value.directive';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { GraphDataStore } from './store/graph-data.store';
     HomeComponent,
     ProfileComponent,
     NavigationBarComponent,
+    IsNumberDirective,
+    SameValueDirective,
   ],
   imports: [
     BrowserModule,
