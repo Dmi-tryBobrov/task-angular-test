@@ -53,17 +53,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this._graphDataSubscribtion$ = this._graphData$
     .subscribe(data => {
-      this.renderGraph.renderCurve('curve-layer', data.input, data.points);
       console.log('inside it!');
+      if(data.points.length){
+        this.renderGraph.renderCurve('curve-layer', data.input, data.points);
+      }
     });
 
-    //TODO: fix resize issue
+    //TODO: improve resize issue
     this._windowResize$ = fromEvent(window, 'resize');
     this._windowResizeSubscription$ = this._windowResize$
     .subscribe(e => {
       this.renderGraph.resetGraph();
       this.renderGraph.renderBackgroundGrid('bgd-layer');
-      
+      this.graphDataStore.getState().subscribe(
+        state => {
+          if(state.points.length){
+            this.renderGraph.renderCurve('curve-layer', state.input, state.points);
+          }
+        }
+      );
+
     });
   }
 
@@ -151,4 +160,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     return '';
   }
 
+ 
 }

@@ -58,7 +58,7 @@ export class RenderGraphService {
       this.contextList['ctx_'+id] = ctx;
       this.initCtx(ctx);
     }    
-    // console.log(this.contextList);
+    console.log(this.contextList);
   }
 
   //to accomodate retina display
@@ -75,16 +75,17 @@ export class RenderGraphService {
     ctx.scale(this._pixelRatio, this._pixelRatio);
   }
 
-
-  //TODO: make this work
+  
   resetGraph(): void {
     let key: string;
     let canvas: HTMLCanvasElement;
     let idPosition = 'canvas_'.length;
     for([key, canvas] of Object.entries(this.canvasList)){
       // console.log(key.slice(idPosition), canvas);
-      this.clearCanvas(canvas.getBoundingClientRect());
+      let id = key.slice(idPosition);
       this.initCanvas(canvas);
+      this.registerContext(canvas.getContext('2d'), id);
+      this.clearCanvas(canvas.getBoundingClientRect());
     }
   }
 
