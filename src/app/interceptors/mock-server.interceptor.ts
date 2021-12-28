@@ -7,7 +7,7 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { MockServerService } from '../services/mock-server.service';
-import { Observable, of } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 
 @Injectable()
 export class MockServerInterceptor implements HttpInterceptor {
@@ -24,7 +24,7 @@ export class MockServerInterceptor implements HttpInterceptor {
     if(request.url === '/api/curve' && request.method === 'POST'){
 
       const res = this.mockServer.calculateCurveCoord(request.body);
-      return of(new HttpResponse({status: 200, body: res}));
+      return of(new HttpResponse({status: 200, body: res})).pipe(delay(1200));
   }
 
     return next.handle(request);

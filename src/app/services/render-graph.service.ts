@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { IPoint} from '../interfaces/point-interface';
 import { IUserInput } from '../interfaces/user-input';
+import { GraphDataStore } from '../store/graph-data.store';
 
 interface Canvases {
   [key: string]: HTMLCanvasElement;
@@ -19,7 +20,6 @@ export class RenderGraphService {
   public contextList: Contexts = {};
   private _ctx?: CanvasRenderingContext2D;
   private _pixelRatio = window.devicePixelRatio;
-
 
   //background default variables
   private _bgdGridColor = '#000000';
@@ -58,7 +58,8 @@ export class RenderGraphService {
     let canvasSize = canvas.getBoundingClientRect();
     canvas.width = canvasSize.width*this._pixelRatio;
     canvas.height = canvasSize.height*this._pixelRatio;
-    console.log(canvasSize.width, canvasSize.height);
+
+    // console.log(canvasSize.width, canvasSize.height);
   }
 
   //to accomodate retina display
@@ -73,7 +74,7 @@ export class RenderGraphService {
     let canvas: HTMLCanvasElement;
     let idPosition = 'canvas_'.length;
     for([key, canvas] of Object.entries(this.canvasList)){
-      console.log(key.slice(idPosition), canvas);
+      // console.log(key.slice(idPosition), canvas);
       this.clearCanvas(canvas.getBoundingClientRect());
       this.initCanvas(canvas);
     }

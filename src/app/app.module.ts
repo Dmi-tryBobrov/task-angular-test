@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MockServerInterceptor } from './interceptors/mock-server.interceptor';
+import { GraphDataStore } from './store/graph-data.store';
 
 @NgModule({
   declarations: [
